@@ -1,2 +1,18 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Sign in</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for @user, url: {controller: "users", action: "create"} do |f| %>
+          <%= f.label "Hi! What's your name?" %>
+          <%= f.text_field :name %>
+      </div>
+      <div class="modal-footer">
+          <%= f.submit "Play!" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
