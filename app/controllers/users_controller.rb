@@ -1,4 +1,12 @@
 class UsersController < ApplicationController
-  def new
+  def create
+    User.create(user_params)
+    redirect_to root_path
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name)
   end
 end
