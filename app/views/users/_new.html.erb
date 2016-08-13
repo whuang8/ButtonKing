@@ -5,7 +5,7 @@
         <h4 class="modal-title">Sign in</h4>
       </div>
       <div class="modal-body">
-        <%= form_for @user, remote: true, url: {controller: "users", action: "create"}, class: "form-inline" do |f| %>
+        <%= form_for @user, remote: true, url: store_user_path, method: "post", class: "form-inline" do |f| %>
           <%= f.label "Hi! What's your name?" %>
           <%= f.text_field :name, class: "form-control" %>
       </div>

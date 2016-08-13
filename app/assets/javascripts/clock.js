@@ -1,39 +1,35 @@
-$(document).on('click', '#button', function() {
-  start();
-});
-
 var clsStopwatch = function() {
     // Private vars
-    var startAt = 0;  // Time of last start / resume. (0 if not running)
-    var lapTime = 0;  // Time on the clock when last stopped in milliseconds
+  var startAt = 0;  // Time of last start / resume. (0 if not running)
+  var lapTime = 0;  // Time on the clock when last stopped in milliseconds
 
-    var now = function() {
-        return (new Date()).getTime(); 
-      }; 
- 
-    // Public methods
-    // Start or resume
-    this.start = function() {
-        startAt = startAt ? startAt : now();
-      };
+  var now = function() {
+      return (new Date()).getTime(); 
+    }; 
 
-    // Stop or pause
-    this.stop = function() {
-        // If running, update elapsed time otherwise keep it
-        lapTime = startAt ? lapTime + now() - startAt : lapTime;
-        startAt = 0; // Paused
-      };
+  // Public methods
+  // Start or resume
+  this.startClock = function() {
+      startAt = startAt ? startAt : now();
+    };
 
-    // Reset
-    this.reset = function() {
-        lapTime = startAt = 0;
-      };
+  // Stop or pause
+  this.stopClock = function() {
+      // If running, update elapsed time otherwise keep it
+      lapTime = startAt ? lapTime + now() - startAt : lapTime;
+      startAt = 0; // Paused
+    };
 
-    // Duration
-    this.time = function() {
-        return lapTime + (startAt ? now() - startAt : 0); 
-      };
-  };
+  // Reset
+  this.resetClock = function() {
+      lapTime = startAt = 0;
+    };
+
+  // Duration
+  this.time = function() {
+      return lapTime + (startAt ? now() - startAt : 0); 
+    };
+};
 
 var x = new clsStopwatch();
 var $time;
@@ -59,27 +55,27 @@ function formatTime(time) {
   return newTime;
 }
 
-function show() {
+function showClock() {
   $time = document.getElementById('time');
-  update();
+  updateClock();
 }
 
-function update() {
+function updateClock() {
   $time.innerHTML = formatTime(x.time());
 }
 
-function start() {
-  clocktimer = setInterval("update()", 1);
-  x.start();
+function startClock() {
+  clocktimer = setInterval("updateClock()", 1);
+  x.startClock();
 }
 
-function stop() {
-  x.stop();
+function stopClock() {
+  x.stopClock();
   clearInterval(clocktimer);
 }
 
-function reset() {
-  stop();
-  x.reset();
-  update();
+function resetClock() {
+  stopClock();
+  x.resetClock();
+  updateClock();
 }
